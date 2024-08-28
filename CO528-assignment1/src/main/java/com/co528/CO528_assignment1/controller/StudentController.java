@@ -37,8 +37,4 @@ public class StudentController {
         return studentService.deleteStudentRecord(id);
     }
 
-//    @DeleteMapping("delete-all-records")
-//    public String deleteAllStudentRecords(){
-//        return studentService.deleteAllStudentRecords();
-//    }
 }
