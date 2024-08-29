@@ -15,18 +15,22 @@ import java.util.Optional;
 public class StudentController {
     @Autowired
     StudentService studentService;
+
      @GetMapping("all-students")
      public List<Student> getAllStudents(){
          return studentService.getAllStudents();
      }
+
     @GetMapping("student/{id}")
     public Optional<Student> getStudentByID(@PathVariable Integer id){
         return studentService.getStudentByID(id);
     }
+
     @PostMapping("add-student")
     public String addStudent(@RequestBody Student student){
         return studentService.addStudent(student);
     }
+
     @PutMapping("update-student/{id}")
     public String updateStudentRecord(@PathVariable Integer id, @RequestBody Student updatedRecord) {
         return studentService.updateStudentRecord(id, updatedRecord);

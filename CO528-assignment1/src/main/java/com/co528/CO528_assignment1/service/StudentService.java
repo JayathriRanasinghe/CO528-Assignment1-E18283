@@ -29,14 +29,22 @@ public class StudentService {
     }
 
     public String updateStudentRecord(Integer id, Student updatedRecord) {
-        Student studentRecord = studentDao.findById(id).get();
-        studentRecord.setFirstName(updatedRecord.getFirstName());
-        studentRecord.setLastName(updatedRecord.getLastName());
-        studentRecord.setStartDate(updatedRecord.getStartDate());
-        studentRecord.setEmail(updatedRecord.getEmail());
-        studentRecord.setContactNumber(updatedRecord.getContactNumber());
-        studentDao.save(updatedRecord);
-        return "Student record updated successfully";
+        Optional<Student> studentRecordOptional = studentDao.findById(id);
+
+        if (studentRecordOptional.isPresent()) {
+            Student studentRecord = studentRecordOptional.get();
+            studentRecord.setFirstName(updatedRecord.getFirstName());
+            studentRecord.setLastName(updatedRecord.getLastName());
+            studentRecord.setStartDate(updatedRecord.getStartDate());
+            studentRecord.setEmail(updatedRecord.getEmail());
+            studentRecord.setContactNumber(updatedRecord.getContactNumber());
+
+            // Update the existing record
+            studentDao.save(studentRecord);
+            return "Student record updated successfully";
+        } else {
+            return "Student record with ID " + id + " not found.";
+        }
     }
 
     public String deleteStudentRecord(Integer id) {
